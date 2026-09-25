@@ -26,6 +26,7 @@ from aiogram.types import (
     InlineKeyboardMarkup,
     InputMediaPhoto,
     InputMediaVideo,
+    LinkPreviewOptions,
     Message,
 )
 from aiogram.utils.keyboard import InlineKeyboardBuilder
@@ -439,7 +440,11 @@ async def send_content(chat_id: int, post: dict) -> list[int]:
     meds = post.get("media") or []
 
     if ct == "text":
-        m = await bot.send_message(chat_id=chat_id, text=cap or "")
+        m = await bot.send_message(
+            chat_id=chat_id,
+            text=cap or "",
+            link_preview_options=LinkPreviewOptions(is_disabled=True),
+        )
         return [m.message_id]
 
     if ct == "photo":
